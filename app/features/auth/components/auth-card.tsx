@@ -82,7 +82,12 @@ export const AuthCard: React.FC<Props> = (props) => {
         </form>
         <Separator />
         <div className="flex flex-col gap-y-2.5">
-          <Button variant={"outline"} size={"lg"} className="relative w-full">
+          <Button
+            onClick={() => onProvider("google")}
+            variant={"outline"}
+            size={"lg"}
+            className="relative w-full"
+          >
             <FcGoogle className="absolute left-2.5 top-2.5" size={20} />{" "}
             Continue with Google
           </Button>
