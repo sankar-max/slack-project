@@ -8,8 +8,8 @@ export const AuthScreen = () => {
   const [authPage, setAuthPage] = useState<AuthFlow>("signIn");
 
   return (
-    <div className="flex h-full items-center justify-center bg-violet-500">
-      <div className="md:h-auto md:w-[420px]">
+    <div className="flex h-full overflow-y-auto items-center justify-center bg-violet-500">
+      <div className="md:h-auto  md:w-[420px]">
         <AuthCard authPage={authPage} setAuthPage={setAuthPage} />
       </div>
     </div>

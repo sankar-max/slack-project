@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
 import { CgSpinner } from "react-icons/cg";
 
-export function AuthSubmit() {
+export function AuthSubmitButton() {
   const res = useFormStatus();
   const isLoading = res.pending;
   return (
@@ -14,7 +14,7 @@ export function AuthSubmit() {
       disabled={isLoading}
       className={cn("w-full")}
     >
-      {isLoading ? <CgSpinner className="animate-spin" /> : "continue"}
+      {isLoading ? <CgSpinner className="animate-spin" /> : "Continue"}
     </Button>
   );
 }

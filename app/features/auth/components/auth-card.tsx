@@ -8,13 +8,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { AuthSubmit, wait } from "@/helpers/auth-submit";
+import { AuthSubmitButton } from "@/helpers/auth-submit";
 import { AuthFlow } from "@/types/auth";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 
 import { FcGoogle } from "react-icons/fc";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { authValidation } from "@/helpers/authCheck";
 
 type Props = {
   authPage: AuthFlow;
@@ -26,25 +27,34 @@ export const AuthCard: React.FC<Props> = (props) => {
 
   const { authPage, setAuthPage } = props;
   const [form, setForm] = useState({});
+  const [pending, setPending] = useState(false);
 
   function onProvider(authLogin: "google" | "github") {
-    signIn(authLogin);
+    setPending(true);
+    signIn(authLogin).finally(() => setPending(false));
   }
+  const isSignInPage = authPage === "signIn";
 
   async function submit(data: FormData) {
+    const name = data.get("name") as string;
     const email = data.get("email") as string;
     const password = data.get("password") as string;
     const confirmPassword = data.get("confirmPassword") as string;
-    // await wait({ email, password, confirmPassword });
-    setForm({ ...form, email, password, confirmPassword });
+
+    if (!isSignInPage) {
+     
+      authValidation({ email, password, confirmPassword, name }, isSignInPage);
+    }
+    signIn("password", { email, password, name, flow: "signUp" }).catch((err) =>
+      console.error(err),
+    );
+    // setForm({ ...form, email, password, confirmPassword, name });
   }
-  console.log(form);
-  const currentAuthPage = authPage === "signIn";
   return (
     <Card className="">
       <CardHeader>
         <CardTitle>
-          {currentAuthPage ? "Login to continue" : "Sign up to continue"}
+          {isSignInPage ? "Login to continue" : "Sign up to continue"}
         </CardTitle>
         <CardDescription className="pt-3">
           Use your email or another service to continue
@@ -52,13 +62,23 @@ export const AuthCard: React.FC<Props> = (props) => {
       </CardHeader>
       <CardContent className="space-y-5">
         <form action={submit} className="space-y-2">
+          {!isSignInPage && (
+            <Input
+              type="text"
+              name="name"
+              required
+              autoComplete="off"
+              placeholder="Full Name"
+              disabled={pending}
+            />
+          )}
           <Input
             type="email"
             name="email"
             required
             autoComplete="off"
             placeholder="Email"
-            disabled={false}
+            disabled={pending}
           />
           <Input
             type="password"
@@ -66,24 +86,25 @@ export const AuthCard: React.FC<Props> = (props) => {
             name="password"
             autoComplete="off"
             placeholder="Password"
-            disabled={false}
+            disabled={pending}
           />
-          {!currentAuthPage && (
+          {!isSignInPage && (
             <Input
               type="password"
               required
               autoComplete="off"
               name="confirmPassword"
-              placeholder="Password"
-              disabled={false}
+              placeholder="Confirm Password"
+              disabled={pending}
             />
           )}
-          <AuthSubmit />
+          <AuthSubmitButton />
         </form>
         <Separator />
         <div className="flex flex-col gap-y-2.5">
           <Button
             onClick={() => onProvider("google")}
+            disabled={pending}
             variant={"outline"}
             size={"lg"}
             className="relative w-full"
@@ -95,6 +116,7 @@ export const AuthCard: React.FC<Props> = (props) => {
 
         <div className="flex flex-col gap-y-2.5">
           <Button
+            disabled={pending}
             onClick={() => onProvider("github")}
             variant={"outline"}
             size={"lg"}
