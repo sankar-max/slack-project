@@ -1,28 +1,35 @@
 "use client";
 
-import { useCurrentUser } from "@/components/hooks/useCurrentUser";
-import { Button } from "@/components/ui/button";
-import { useAuthActions } from "@convex-dev/auth/react";
-import Image from "next/image";
+import { UserGetWorkSpaces } from "@/features/workspace/api/use-get-workspaces";
+import { useModal } from "@/store/dialog-modal/use-modal";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 
 export default function Home() {
-  const { signOut } = useAuthActions();
-  const { data, isLoading } = useCurrentUser();
-  if (isLoading) return "loading";
-  if (!data) return null;
+  const router = useRouter();
+  const { data, isLoading } = UserGetWorkSpaces();
+  const [isOpen, setIsOpen] = useModal();
 
-  const { name, image, email } = data;
+  const workspeacId = useMemo(() => {
+    return data?.[0]?._id;
+  }, [data]);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (workspeacId) {
+      router.replace(`/workspace/${workspeacId}`);
+      setIsOpen(false);
+    } else if (!isOpen) {
+      setIsOpen(!isOpen);
+    }
+  }, [isLoading, isOpen, router, setIsOpen, workspeacId]);
+
   return (
-    <div className="grid h-full place-items-center">
-      <div className="w-80 border shadow-2xl">
-        <h1>{name}</h1>
-        <p>{email}</p>
-
-        <div className="relative size-40 overflow-hidden rounded-full">
-          <Image fill src={image || ""} alt={name || ""} />
-        </div>
-        <div onClick={() => signOut()}>Logout</div>
-      </div>
+    <div>
+      {data?.map((value) => {
+        return <h1 key={value.name}>{value.joinCode}</h1>;
+      })}
     </div>
   );
 }
