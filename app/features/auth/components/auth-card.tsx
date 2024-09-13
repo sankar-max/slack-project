@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { AuthSubmitButton } from "@/helpers/auth-submit";
+import { AuthSubmitButton } from "@/helpers/authSubmit";
 import { AuthFlow } from "@/types/auth";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FaGithub } from "react-icons/fa";
@@ -42,7 +42,6 @@ export const AuthCard: React.FC<Props> = (props) => {
     const confirmPassword = data.get("confirmPassword") as string;
 
     if (!isSignInPage) {
-     
       authValidation({ email, password, confirmPassword, name }, isSignInPage);
     }
     signIn("password", { email, password, name, flow: "signUp" }).catch((err) =>

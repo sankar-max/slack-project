@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const wrokspace_schema = z.object({
+export const workspace_schema = z.object({
   name: z
     .string()
     .min(2, {

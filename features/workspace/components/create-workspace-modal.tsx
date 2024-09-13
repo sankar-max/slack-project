@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useModal } from "@/store/dialog-modal/use-modal";
+import { useModal } from "@/store/dialog-modal/useModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -21,28 +21,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { wrokspace_schema } from "@/schema/workspeace";
+import { workspace_schema } from "@/schema/workspace";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-type createWorkspaceT = z.infer<typeof wrokspace_schema>;
+type createWorkspaceT = z.infer<typeof workspace_schema>;
 
 export const CreateWorkSpaceModal = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useModal();
+  const { isOpen, closeModal } = useModal();
   const createApi = useMutation(api.workspace.create);
 
   const form = useForm<createWorkspaceT>({
-    resolver: zodResolver(wrokspace_schema),
+    resolver: zodResolver(workspace_schema),
     defaultValues: {
       name: "",
     },
   });
 
   const handleCloseModal = () => {
-    setIsOpen(false);
+    closeModal();
   };
 
   const onSubmit = async (formValues: createWorkspaceT) => {
@@ -51,8 +51,9 @@ export const CreateWorkSpaceModal = () => {
         const res = await createApi({ name: formValues.name });
         debugger;
         form.reset();
-        toast.success("WorkSpace is created.");
-        setIsOpen(false);
+        toast.success(res.message);
+        closeModal();
+
         router.push(`/workspace/${res.workspace_id}`);
       }
     } catch (error) {}
@@ -61,7 +62,7 @@ export const CreateWorkSpaceModal = () => {
     <Dialog open={isOpen} onOpenChange={handleCloseModal}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add workspace</DialogTitle>
+          <DialogTitle className="text-black">Add workspace</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -70,9 +71,10 @@ export const CreateWorkSpaceModal = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Workspace Name</FormLabel>
+                  <FormLabel className="text-black">Workspace Name</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-black"
                       placeholder='Workspace name e.g "Work","Personal'
                       {...field}
                     />

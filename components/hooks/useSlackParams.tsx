@@ -2,15 +2,13 @@ import { Id, TableNames } from "@/convex/_generated/dataModel";
 import { SystemTableNames } from "convex/server";
 import { useParams } from "next/navigation";
 
-const SlackuseParams = ({
+export const useSlackParams = <T extends TableNames | SystemTableNames>({
   paramsChar,
-  dbType,
+  db_type,
 }: {
-  paramsChar: any;
-  dbType: TableNames | SystemTableNames;
+  paramsChar: string;
+  db_type: T;
 }) => {
   const params = useParams();
-  return params[paramsChar] as Id<typeof dbType>;
+  return params[paramsChar] as Id<typeof db_type>;
 };
-
-export default SlackuseParams;

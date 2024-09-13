@@ -5,7 +5,7 @@ type PropsT = {
   id: Id<"workspace">;
 };
 
-export const UserGetWorkSpace = ({ id }: PropsT) => {
+export const GetWorkSpace = ({ id }: PropsT) => {
   const data = useQuery(api.workspace.getById, { id });
 
   const isLoading = data === undefined;
