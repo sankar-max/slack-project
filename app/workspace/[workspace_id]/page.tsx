@@ -25,11 +25,7 @@ const WorkSpaceIdPage = () => {
         </div>
       </div>
     );
-  return (
-    <div className="grid size-full place-items-center">
-      <ProfileButton />
-    </div>
-  );
+  return <div className="grid size-full place-items-center">sas</div>;
 };
 
 export default WorkSpaceIdPage;

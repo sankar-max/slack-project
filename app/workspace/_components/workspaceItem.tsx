@@ -1,17 +1,12 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { Id } from "@/convex/_generated/dataModel";
+import { Doc } from "@/convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
 
-type Props = {
-  workspace: {
-    _id: Id<"workspace">;
-    _creationTime: number;
-    name: string;
-    userId: Id<"users">;
-    joinCode: string;
-  };
-};
-export const WorkspaceListItem = ({ workspace }: Props) => {
+export const WorkspaceListItem = ({
+  workspace,
+}: {
+  workspace: Doc<"workspace">;
+}) => {
   const router = useRouter();
   return (
     <DropdownMenuItem

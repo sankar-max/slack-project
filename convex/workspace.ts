@@ -31,7 +31,7 @@ export const get = query({
     for (const { workspaceId } of members) {
       const workspace = await ctx.db.get(workspaceId);
       if (workspace) {
-        workspaces.push(workspace);
+        workspaces.push(workspace);                                                                         
       }
     }
     return workspaces;
