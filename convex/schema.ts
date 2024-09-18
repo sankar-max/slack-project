@@ -9,7 +9,7 @@ const schema = defineSchema({
     userId: v.id("users"),
     joinCode: v.string(),
   }),
-  member: defineTable({
+  members: defineTable({
     userId: v.id("users"),
     workspaceId: v.id("workspace"),
     role: v.union(v.literal("member"), v.literal("admin")),

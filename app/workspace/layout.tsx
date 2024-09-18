@@ -8,6 +8,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { WorkspaceLeft } from "./[workspace_id]/_components/workspaceLeft";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -19,8 +20,11 @@ const Layout = ({ children }: { children: ReactNode }) => {
           autoSaveId={"workspace-resizable"}
           direction="horizontal"
         >
-          <ResizablePanel defaultSize={20} minSize={10}></ResizablePanel>
-          <ResizableHandle />
+          <ResizablePanel defaultSize={20} minSize={10}>
+            <WorkspaceLeft/>
+          </ResizablePanel>
+
+          <ResizableHandle withHandle  />
           <ResizablePanel defaultSize={20} minSize={10}>
             {children}
           </ResizablePanel>

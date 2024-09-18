@@ -21,10 +21,10 @@ export const WorkspaceSwitcher = ({}: Props) => {
   const id = useWorkSpaceId();
 
   const { data: workspaces, isLoading: workspacesLoading } = GetWorkSpaces();
-  const { data: workspace, isLoading } = GetWorkSpace({ id });
+  const {  workspace, isLoading } = GetWorkSpace({ id });
 
   const listOfWorkspaces = workspaces?.filter(({ _id }) => _id !== id);
-
+console.log("sasasas",workspace);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +32,7 @@ export const WorkspaceSwitcher = ({}: Props) => {
           {isLoading ? (
             <Loader className="size-5 shrink-0 animate-spin" />
           ) : (
-            workspace?.name.charAt(0).toUpperCase()
+            workspace?.data?.name?.charAt(0).toUpperCase()
           )}
         </Button>
       </DropdownMenuTrigger>
@@ -42,7 +42,7 @@ export const WorkspaceSwitcher = ({}: Props) => {
         side="bottom"
       >
         <DropdownMenuItem className="flex flex-col items-start justify-start overflow-hidden">
-          <span className="t truncate">{workspace?.name}</span>
+          <span className="t truncate">{workspace?.data?.name}</span>
           <span className="text-muted-foreground">Active workspace</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

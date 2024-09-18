@@ -4,7 +4,7 @@ import { AuthFlow } from "@/types/auth";
 import { useState } from "react";
 import { AuthCard } from "../features/auth/components/auth-card";
 
-export const AuthScreen = () => {
+ const AuthScreen = () => {
   const [authPage, setAuthPage] = useState<AuthFlow>("signIn");
 
   return (
@@ -15,3 +15,4 @@ export const AuthScreen = () => {
     </div>
   );
 };
+export default AuthScreen

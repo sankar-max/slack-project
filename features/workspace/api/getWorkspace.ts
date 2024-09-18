@@ -6,9 +6,9 @@ type PropsT = {
 };
 
 export const GetWorkSpace = ({ id }: PropsT) => {
-  const data = useQuery(api.workspace.getById,  {id} );
+  const workspace = useQuery(api.workspace.getById,  {id} );
 
-  const isLoading = data === undefined;
+  const isLoading = workspace?.data === undefined;
 
-  return { data, isLoading };
+  return { workspace, isLoading };
 };

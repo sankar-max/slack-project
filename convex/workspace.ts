@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 
-function generateOtp(length: number) {
+export function generateOtp(length: number) {
   const char = "0123456789abcdefghijklmnopqrstuvwxyz";
   let otp: string = "";
 
@@ -22,7 +22,7 @@ export const get = query({
     }
 
     const members = await ctx.db
-      .query("member")
+      .query("members")
       .withIndex("by_user_id", (q) => q.eq("userId", userId))
       .collect();
 
@@ -55,7 +55,7 @@ export const create = mutation({
       userId,
       joinCode,
     });
-    await ctx.db.insert("member", {
+    await ctx.db.insert("members", {
       userId,
       workspaceId,
       role: "admin",
@@ -76,6 +76,14 @@ export const getById = query({
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Unauthorized");
 
-    return await ctx.db.get(args.id);
+    const user = await ctx.db.get(args.id);
+
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_workspace_id_user_id", (q) =>
+        q.eq("workspaceId", args.id).eq("userId", userId),
+      )
+      .unique();
+    return { data: { ...user, member } };
   },
 });
