@@ -1,4 +1,3 @@
-import { useSlackParams } from "@/components/hooks/useSlackParams";
 import { Button } from "@/components/ui/button";
 import { GetWorkSpace } from "@/features/workspace/api/getWorkspace";
 import { GetWorkSpaces } from "@/features/workspace/api/getWorkspaces";
@@ -13,15 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { WorkspaceListItem } from "./workspaceItem";
+import { useWorkSpaceId } from "@/components/hooks/useWorkspaceId";
 type Props = {};
 
 export const WorkspaceSwitcher = ({}: Props) => {
   const router = useRouter();
   const { openModal } = useModal();
-  const id = useSlackParams({
-    paramsChar: "workspace_id",
-    db_type: "workspace",
-  });
+  const id = useWorkSpaceId();
 
   const { data: workspaces, isLoading: workspacesLoading } = GetWorkSpaces();
   const { data: workspace, isLoading } = GetWorkSpace({ id });

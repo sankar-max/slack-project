@@ -15,7 +15,7 @@ export const WorkspaceListItem = ({
     >
       <div className="flex size-7 items-center justify-center rounded-full bg-accent p-2 group-hover:border">
         <span className="p-2 text-primary">
-          {workspace._id.charAt(0).toUpperCase()}
+          {workspace.name.charAt(0).toUpperCase()}
         </span>
       </div>
       <span>{workspace.name}</span>

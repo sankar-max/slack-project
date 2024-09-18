@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
+import { ConvexClientProvider } from "@/components/providers/convexClientProvider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { Modal } from "@/components/ui/modal";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { JotaiProvider } from "@/components/providers/jotaiProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,11 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn(inter.className, "text-white")}>
           <ConvexClientProvider>
-            <Modal />
-            <Toaster />
-            {children}
+            <JotaiProvider>
+              <Modal />
+              <Toaster />
+              {children}
+            </JotaiProvider>
           </ConvexClientProvider>
         </body>
       </html>

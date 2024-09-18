@@ -31,9 +31,11 @@ export const get = query({
     for (const { workspaceId } of members) {
       const workspace = await ctx.db.get(workspaceId);
       if (workspace) {
-        workspaces.push(workspace);                                                                         
+        workspaces.push(workspace);
       }
     }
+    const data = await ctx.db.get(userId);
+
     return workspaces;
   },
 });
@@ -58,9 +60,10 @@ export const create = mutation({
       workspaceId,
       role: "admin",
     });
-
+    const data = await ctx.db.get(workspaceId);
     return {
       workspace_id: workspaceId,
+      data,
       status: true,
       message: `${args.name} workspace is created`,
     };

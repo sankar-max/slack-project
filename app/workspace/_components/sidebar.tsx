@@ -10,7 +10,7 @@ import { SidebarButton } from "./sidebarButton";
 import { WorkspaceSwitcher } from "./workspaceSwitcher";
 import { usePathname } from "next/navigation";
 
-export const WorkSpaceSideBar = () => {
+export const WorkspaceSideBar = () => {
   const urlPath = usePathname();
   return (
     <aside className="flex h-full w-16 flex-col items-center gap-y-4 bg-primary p-1">

@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { WorkspaceHeader } from "./_components/header";
-import { WorkSpaceSideBar } from "./_components/sidebar";
+import { WorkspaceSideBar } from "./_components/sidebar";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -14,16 +14,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className="h-full">
       <WorkspaceHeader />
       <div className="flex h-[calc(100dvh-48px)] overflow-y-auto bg-secondary">
-        <WorkSpaceSideBar />
+        <WorkspaceSideBar />
         <ResizablePanelGroup
           autoSaveId={"workspace-resizable"}
           direction="horizontal"
         >
-          <ResizablePanel>
-            <div className="">work space</div>
-          </ResizablePanel>
+          <ResizablePanel defaultSize={20} minSize={10}></ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel>{children}</ResizablePanel>
+          <ResizablePanel defaultSize={20} minSize={10}>
+            {children}
+          </ResizablePanel>
         </ResizablePanelGroup>
       </div>
     </div>

@@ -1,13 +1,10 @@
-import { useSlackParams } from "@/components/hooks/useSlackParams";
+import { useWorkSpaceId } from "@/components/hooks/useWorkspaceId";
 import { Button } from "@/components/ui/button";
 import { GetWorkSpace } from "@/features/workspace/api/getWorkspace";
 import { Info, SearchIcon } from "lucide-react";
 
 export const WorkspaceHeader = () => {
-  const id = useSlackParams({
-    paramsChar: "workspace_id",
-    db_type: "workspace",
-  });
+  const id = useWorkSpaceId();
 
   const { data, isLoading } = GetWorkSpace({ id });
   return (

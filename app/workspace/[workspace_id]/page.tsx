@@ -1,6 +1,6 @@
 "use client";
 
-import { useSlackParams } from "@/components/hooks/useSlackParams";
+import { useWorkSpaceId } from "@/components/hooks/useWorkspaceId";
 import { Button } from "@/components/ui/button";
 import ProfileButton from "@/components/user/profile-btn";
 import { GetWorkSpace } from "@/features/workspace/api/getWorkspace";
@@ -8,10 +8,7 @@ import { useModal } from "@/store/dialog-modal/useModal";
 
 const WorkSpaceIdPage = () => {
   const { closeModal, isOpen, openModal } = useModal();
-  const id = useSlackParams({
-    paramsChar: "workspace_id",
-    db_type: "workspace",
-  });
+  const id = useWorkSpaceId();
   const { data, isLoading } = GetWorkSpace({ id });
   if (!data)
     return (

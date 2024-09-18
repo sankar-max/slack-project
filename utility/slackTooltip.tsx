@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
+
 type Props = {
   children: ReactNode;
   name: string;
@@ -13,6 +14,7 @@ type Props = {
   side?: "left" | "top" | "right" | "bottom";
   sideOffset?: number;
 };
+
 export const SlackTooltipButton = ({
   children,
   delayDuration = 200,
@@ -21,10 +23,10 @@ export const SlackTooltipButton = ({
   sideOffset = 4,
 }: Props) => {
   return (
-    <TooltipProvider delayDuration={delayDuration}>
-      <Tooltip>
+    <TooltipProvider  delayDuration={delayDuration}>
+      <Tooltip  >
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} sideOffset={sideOffset}>
+        <TooltipContent className=" bg-black text-white border-none  " side={side} sideOffset={sideOffset}>
           <p>{name}</p>
         </TooltipContent>
       </Tooltip>
