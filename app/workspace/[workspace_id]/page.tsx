@@ -9,7 +9,7 @@ import { useModal } from "@/store/dialog-modal/useModal";
 const WorkSpaceIdPage = () => {
   const { closeModal, isOpen, openModal } = useModal();
   const id = useWorkSpaceId();
-  const { data, isLoading } = GetWorkSpace({ id });
+  const { data, isLoading } = GetWorkSpace({ id }) || {};
   if (!data)
     return (
       <div className="grid h-full place-items-center">
@@ -22,7 +22,11 @@ const WorkSpaceIdPage = () => {
         </div>
       </div>
     );
-  return <div className="grid size-full place-items-center">sas</div>;
+  return (
+    <div className="grid size-full place-items-center">
+      <ProfileButton />
+    </div>
+  );
 };
 
 export default WorkSpaceIdPage;

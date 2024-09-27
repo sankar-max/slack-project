@@ -84,6 +84,7 @@ export const getById = query({
         q.eq("workspaceId", args.id).eq("userId", userId),
       )
       .unique();
-    return { data: { ...user, member } };
+
+    return { data: user };
   },
 });

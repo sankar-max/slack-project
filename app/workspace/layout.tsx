@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <WorkspaceLeft/>
           </ResizablePanel>
 
-          <ResizableHandle withHandle  />
+          <ResizableHandle   />
           <ResizablePanel defaultSize={20} minSize={10}>
             {children}
           </ResizablePanel>

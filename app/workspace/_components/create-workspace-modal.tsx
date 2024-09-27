@@ -49,7 +49,6 @@ export const CreateWorkSpaceModal = () => {
     try {
       if (formValues.name) {
         const res = await createApi({ name: formValues.name });
-        debugger;
         form.reset();
         toast.success(res.message);
         closeModal();
