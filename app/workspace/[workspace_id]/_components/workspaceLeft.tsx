@@ -40,15 +40,3 @@ export const WorkspaceLeft = () => {
     </div>
   );
 };
-// const workspaceData: {
-//   member: {
-//     _id: Id<"members">;
-//     _creationTime: number;
-//     userId: Id<"users">;
-//     workspaceId: Id<"workspace">;
-//     role: "member" | "admin";
-//   };
-//   name: string;
-//   userId: Id<"users">;
-//   joinCode: string;
-// };
